@@ -1,0 +1,28 @@
+.Green {
+	background-color: lightgreen;
+	border-radius: 5px;
+}
+
+.Yellow {
+	background-color: lightyellow;
+	border-radius: 5px;
+}
+
+.Orange {
+	background-color: lightsalmon;
+	border-radius: 5px;
+}
+
+.Red {
+	background-color: palevioletred;
+	border-radius: 5px;
+}
+
+.Purple {
+	background-color: violet;
+    border-radius: 5px;}
+    
+body { background-color: grey;
+}
+
+h1 { text-align: center;}
