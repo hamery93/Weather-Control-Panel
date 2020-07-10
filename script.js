@@ -1,11 +1,8 @@
-// var citiesArray = JSON.parse(localStorage.getItem("cities")) || [];
-
-
 $(document).ready(function () {
 
 
 
-
+    // Click event
     $("#userSearch").on("click", function () {
 
         var cityName = $("#userInput").val();
@@ -14,23 +11,10 @@ $(document).ready(function () {
 
         searchWeather(cityName);
 
-
-
     })
 
 
-
-
-    $(".history").on("click", "li", function () {
-
-
-
-    })
-
-    function makeRow(text) {
-
-    }
-
+    //This functions makes up the card at top of page. Dynamically created HTML
     function searchWeather(cityName) {
 
         var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -47,16 +31,16 @@ $(document).ready(function () {
             var currentDate = moment.unix(dateInfo).format("L");
             console.log("current date:  " + currentDate);
 
-            //Local storage here, use prior assisgment 
             $("#today").empty()
 
+            //Below vars tap into the response object from API and drills down to fetch data
             var card = $("<div>").addClass("card")
             var wind = $("<p>").addClass("card-text").text("Wind Speed: " + response.wind.speed + " mph")
             var temp = $("<p>").addClass("card-text").text("Temperature: " + response.main.temp + "  F")
             var humidity = $("<p>").addClass("card-text").text("Humidity: " + response.main.humidity + " %")
-            var date = $("<p>").addClass("card-text").text("Current Date: " + currentDate)
+            var date = $("<p>").addClass("card-text").text(cityName + "   -----     Current Date: " + currentDate)
             var cardBody = $("<div>").addClass("card-body")
-            // var icon ---------this is just weather icon
+            
 
             cardBody.append(date, temp, wind, humidity) //put icon here when you  get it
             card.append(cardBody)
@@ -67,7 +51,7 @@ $(document).ready(function () {
             var lon = response.coord.lon;
             var lat = response.coord.lat;
 
-            // SEND OVER TO uvIndex()
+            // Sends lon/lat data to next function
             uvIndex(lon, lat);
 
 
@@ -93,6 +77,8 @@ $(document).ready(function () {
             var uvButton = $("<button>").text(uvFinal);
             $("#today").append(uvButton);
 
+
+                //If statement color codes button depending on value of UV Index
             if (uvFinal < 3) {
 
                 uvButton.attr("class", "Green");
@@ -117,9 +103,7 @@ $(document).ready(function () {
         });
     }
 
-
-
-
+    //This function prints out the 5 day forecast at the bottom of page
     function getForecast(cityName) {
 
         var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" +
@@ -130,13 +114,13 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
-            
-            
+
+
             $("#forecast").html("<h3 class=\"mt-3\">5-Day Forecast:</h4>").append("<div class=\"row\">");
 
-            
 
 
+                //Loops through object values
             for (var i = 0; i < response.list.length; i++) {
 
                 if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
@@ -147,10 +131,10 @@ $(document).ready(function () {
                     var showIcon = $("<img src=http://openweathermap.org/img/wn/" + icon + ".png />")
 
 
-                    // var title come back to this
+                    
                     var temp = $("<p>").addClass("card-text").text("Temp   " + response.list[i].main.temp + "  F");
                     var humid = $("<p>").addClass("card-text").text("Humidity   " + response.list[i].main.humidity + "  %");
-                    var dateOne = $("<p>").addClass("card-text").text( moment.unix(response.list[i].dt).utc().format("L"))
+                    var dateOne = $("<p>").addClass("card-text").text(moment.unix(response.list[i].dt).utc().format("L"))
 
                     col.append(card.append(body.append(dateOne, temp, humid, showIcon))) //put icon and title in here too
                     $("#forecast .row").append(col)
