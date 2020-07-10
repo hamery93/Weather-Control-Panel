@@ -17,7 +17,7 @@ $(document).ready(function () {
     //This functions makes up the card at top of page. Dynamically created HTML
     function searchWeather(cityName) {
 
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" +
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" +
             cityName + "&appid=a474538ef7da914bc793b0a7b8480af5&units=imperial";
 
         $.ajax({
@@ -106,7 +106,7 @@ $(document).ready(function () {
     //This function prints out the 5 day forecast at the bottom of page
     function getForecast(cityName) {
 
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" +
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" +
             cityName + "&appid=a474538ef7da914bc793b0a7b8480af5&units=imperial";
 
         $.ajax({
@@ -128,7 +128,7 @@ $(document).ready(function () {
                     var card = $("<div>").addClass("card bg-primary text-white")
                     var body = $("<div>").addClass("card-body p-2")
                     var icon = response.list[i].weather[0].icon;
-                    var showIcon = $("<img src=http://openweathermap.org/img/wn/" + icon + ".png />")
+                    var showIcon = $("<img src=https://openweathermap.org/img/wn/" + icon + ".png />")
 
 
                     
